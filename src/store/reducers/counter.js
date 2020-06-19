@@ -1,8 +1,7 @@
-import * as actionTypes from "./actions";
+import * as actionTypes from "../actions";
 
 const initialState = {
   counter: 0,
-  results: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,20 +25,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         counter: state.counter - action.payload,
-      };
-    case actionTypes.STORE:
-      return {
-        ...state,
-        results: [...state.results, state.counter],
-      };
-    case actionTypes.REMOVE:
-      const newResults = [
-        ...state.results.slice(0, action.payload),
-        ...state.results.slice(action.payload + 1),
-      ];
-      return {
-        ...state,
-        results: newResults,
       };
   }
 
