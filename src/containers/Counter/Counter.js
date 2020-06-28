@@ -1,40 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import {
+  increment,
+  decrement,
+  add,
+  subtract,
+  store,
+  remove,
+} from "../../store/actions";
 
 import CounterControl from "../../components/CounterControl/CounterControl";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
 
 class Counter extends Component {
-  state = {
-    counter: 0,
-  };
-
-  counterChangedHandler = (action, value) => {
-    switch (action) {
-      case "inc":
-        this.setState((prevState) => {
-          return { counter: prevState.counter + 1 };
-        });
-        break;
-      case "dec":
-        this.setState((prevState) => {
-          return { counter: prevState.counter - 1 };
-        });
-        break;
-      case "add":
-        this.setState((prevState) => {
-          return { counter: prevState.counter + value };
-        });
-        break;
-      case "sub":
-        this.setState((prevState) => {
-          return { counter: prevState.counter - value };
-        });
-        break;
-    }
-  };
-
   render() {
     const output = this.props.results.map((res, index) => {
       return (
@@ -78,13 +56,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIncrementCounter: () => dispatch({ type: actionTypes.INCREMENT }),
-    onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT }),
-    onAddFive: () => dispatch({ type: actionTypes.ADD, payload: 5 }),
-    onSubstractFive: () => dispatch({ type: actionTypes.SUBTRACT, payload: 5 }),
-    onStoreResult: (ctr) => dispatch({ type: actionTypes.STORE, payload: ctr }),
-    onRemoveResult: (idx) =>
-      dispatch({ type: actionTypes.REMOVE, payload: idx }),
+    onIncrementCounter: () => dispatch(increment()),
+    onDecrementCounter: () => dispatch(decrement()),
+    onAddFive: () => dispatch(add(5)),
+    onSubstractFive: () => dispatch(subtract(5)),
+    onStoreResult: (ctr) => dispatch(store(ctr)),
+    onRemoveResult: (idx) => dispatch(remove(idx)),
   };
 };
 
